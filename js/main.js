@@ -159,13 +159,81 @@ addData({
     .then(getData)
 
 
+// zad 5. Async - await 
+
+async function run() {
+    await first()
+    await second()
+    await third()
+}
+
+run()
+
+// zad 6. Dodanie do przeglądarki za pomocą await i asyc 
+
+const personMen = [{
+        name_men: "tomek",
+        age_men: 22
+    },
+    {
+        name_men: "Leszek",
+        age_men: 44
+    }
+
+]
+
+const addNewPerson = (add) => {
+    return new Promise((resolve, reject) => {
+        personMen.push(add)
+        console.log(personMen)
+        resolve()
+    })
+}
+
+function getNextData() {
+
+    setTimeout(() => {
+        let output = "";
+        personMen.forEach((el, index, arrr) => {
+            output += `<li> ${index + 1}.  ${el.name_men} ${el.age_men} </li>`
+        })
+        document.body.innerHTML = output
+    }, 3000)
+}
+
+
+async function addNext() {
+    await addNewPerson({
+        name_men: "Jan Miłosz",
+        age_men: 45
+    })
+
+    await getNextData()
+}
+
+
+addNext()
+
+// Pobieranie dancyh - fetch 
+
+const URL = "https://dog.ceo/api/breeds/image/random";
+
+fetch(URL)
+    .then(data => data.json())
+    .then(data => console.log("data", data))
 
 
 
-// async function testowanie() {
-//     await one();
-//     await two();
-//     await three ()
-// }
+// Pobieranie danych - fetch - i używanie async + await
 
-// testowanie();
+
+async function getUrl() {
+
+    const urlAwait = "https://dog.ceo/api/breeds/image/random"
+
+    const apiValue = await fetch(urlAwait)
+    const apiValueJson = await apiValue.json()
+    console.log("dataAsyncAwait", apiValueJson)
+}
+
+getUrl()
